@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Registration Form</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+    }
+    .container {
+        max-width: 400px;
+        margin: 50px auto;
+        padding: 20px;
+        background: #a19898;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .form-group {
+        margin-bottom: 20px;
+    }
+    .form-group label {
+        display: block;
+        font-weight: bold;
+    }
+    .form-group input {
+        width: 100%;
+        padding: 8px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    .form-group input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+    .form-group input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+    .error-message {
+        color: red;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <h2>Registration Form</h2>
+    <form id="registrationForm" onsubmit="return validateForm()">
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <div class="form-group">
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" required>
+        </div>
+        <div class="form-group">
+            <label for="dob">Date of Birth:</label>
+            <input type="date" id="dob" name="dob" required>
+        </div>
+        <div class="form-group">
+            <label for="mobile">Mobile Number:</label>
+            <input type="tel" id="mobile" name="mobile" pattern="[0-9]{10}" required>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Register">
+        </div>
+    </form>
+    <div id="errorMessages" class="error-message"></div>
+</div>
+
+<script>
+    function validateForm() {
+        var name = document.getElementById("name").value;
+        var email = document.getElementById("email").value;
+        var password = document.getElementById("password").value;
+        var confirmPassword = document.getElementById("confirmPassword").value;
+        var dob = document.getElementById("dob").value;
+        var mobile = document.getElementById("mobile").value;
+
+        var errorMessages = "";
+
+        if (password !== confirmPassword) {
+            errorMessages += "Passwords do not match<br>";
+        }
+
+        if (!validateEmail(email)) {
+            errorMessages += "Invalid email address<br>";
+        }
+
+        if (!validateMobile(mobile)) {
+            errorMessages += "Invalid mobile number<br>";
+        }
+
+        if (errorMessages !== "") {
+            document.getElementById("errorMessages").innerHTML = errorMessages;
+            return false;
+        }
+
+        return true;
+    }
+
+    function validateEmail(email) {
+        var re = /\S+@\S+\.\S+/;
+        return re.test(email);
+    }
+
+    function validateMobile(mobile) {
+        var re = /^[0-9]{10}$/;
+        return re.test(mobile);
+    }
+</script>
+
+</body>
+</html>
